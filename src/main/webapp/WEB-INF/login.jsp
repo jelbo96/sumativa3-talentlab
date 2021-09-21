@@ -18,7 +18,7 @@ uri="http://www.springframework.org/tags/form" %>
             </head>
 
             <body>
-                <h1>Login</h1>
+                <h1>Iniciar Sesión</h1>
                 <p>
                     <c:out value="${error}" />
                 </p>
@@ -31,9 +31,9 @@ uri="http://www.springframework.org/tags/form" %>
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" />
                     </p>
-                    <input type="submit" value="Login!" />
+                    <input type="submit" value="Iniciar Sesión" class="btn btn-primary" />
+                    <a href="/registrar" class="btn btn-secondary"> Registrarse</a>
                 </form>
-                <a href="/registrar"> Registrarse</a>
             </body>
 
             </html>

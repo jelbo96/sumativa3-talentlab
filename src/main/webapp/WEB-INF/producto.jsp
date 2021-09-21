@@ -19,6 +19,11 @@
                         width: 25%;
                         padding: 10px;
                     }
+                    
+                    .title {
+                        display: flex;
+                        flex-direction: row;
+                    }
                 </style>
                 <meta charset="ISO-8859-1">
                 <title>Panel de Productos</title>
@@ -30,8 +35,32 @@
             </head>
 
             <body>
-                <h1>AGREGAR PRODUCTOS</h1>
-                <a href="/">Atrás</a>
+
+                <div>
+                    <ul class="navbar navbar-dark bg-dark">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/producto">Gestion de Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/venta">Registrar Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout">Cerrar Sesion</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="title">
+                    <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&larr;</a>
+                    <h1> Agregar productos </h1>
+                </div>
+
+                <br />
+
+
+
+
                 <form:form action="/producto/crear" method="post" modelAttribute="producto" class="forms">
                     <form:label path="nombre">Nombre:</form:label>
                     <form:input type="text" path="nombre" /><br>
@@ -48,7 +77,7 @@
 
                     <input type="submit" value="Crear Producto">
                 </form:form>
-                <a href="/">Atrás</a>
+
                 <br>
                 <c:out value="${error}"></c:out>
                 <br>

@@ -18,10 +18,21 @@ uri="http://www.springframework.org/tags/form" %>
             </head>
 
             <body>
-                <h1>Registrate!</h1>
+                <div>
+                    <ul class="navbar navbar-dark bg-dark">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/producto">Gestion de Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/venta">Registrar Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout">Cerrar Sesion</a>
+                        </li>
+                    </ul>
+                </div>
 
-                <a href="/usuario"> Usuarios</a> | <a href="/producto">Productos</a> |
-                <a href="/venta">Ventas</a>
+                <h1>Registrate!</h1>
 
                 <p>
                     <form:errors path="usuario.*" />
@@ -44,7 +55,7 @@ uri="http://www.springframework.org/tags/form" %>
                         <form:label path="passwordConfirmation">Confirmación Password:</form:label>
                         <form:password path="passwordConfirmation" />
                     </p>
-                    <input type="submit" value="Registrate!" />
+                    <input type="submit" value="Registrate!" class="btn btn-primary" />
                 </form:form>
             </body>
 

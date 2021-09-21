@@ -20,6 +20,11 @@
                         width: 25%;
                         padding: 10px;
                     }
+                    
+                    .title {
+                        display: flex;
+                        flex-direction: row;
+                    }
                 </style>
 
                 <meta charset="ISO-8859-1">
@@ -32,8 +37,29 @@
             </head>
 
             <body>
-                <h1>Registrar Venta</h1>
-                <a href="/">Atrás</a>
+
+                <div>
+                    <ul class="navbar navbar-dark bg-dark">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/producto">Gestion de Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/venta">Registrar Ventas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout">Cerrar Sesion</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="title">
+                    <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&larr;</a>
+                    <h1>Registrar Venta</h1>
+                </div>
+
+                <br />
+
                 <form:form action="/venta/crear" method="post" modelAttribute="venta" class="forms">
 
                     <label for="usuarios">Seleccione el Cliente:</label>
@@ -63,8 +89,13 @@
 
 
 
-                <a href="/">Atrás</a>
-                <h1>Listado de ventas globales</h1>
+                <div class="title">
+                    <a href="/" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">&larr;</a>
+                    <h1>Listado de ventas globales</h1>
+                </div>
+
+                <br />
+
                 <table>
 
                     <thead>

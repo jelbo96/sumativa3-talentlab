@@ -15,28 +15,23 @@ pageEncoding="ISO-8859-1"%>
 
     <body>
         <div>
-            <a href="logout">
-                <h5>Cerrar sesion</h5>
-            </a>
+            <ul class="navbar navbar-dark bg-dark">
+                <li class="nav-item">
+                    <a class="nav-link" href="/producto">Gestion de Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/venta">Registrar Ventas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="registrar">Registrar Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout">Cerrar Sesion</a>
+                </li>
+            </ul>
+
             <h1>TIENDA VIRTUAL</h1>
-
-            <div>
-                <a href="/producto">Gesti�n de Productos</a>
-            </div>
-
-            <br />
-            <br />
-
-            <div>
-                <a href="/venta">Registrar de Ventas</a>
-            </div>
-
-            <a href="login">
-                <h1>Iniciar Sesion</h1>
-            </a>
-            <a href="registrar">
-                <h1>Registrar</h1>
-            </a>
+            <h5>Seleccione alguna opcion del menu de arriba</h5>
         </div>
     </body>
 
