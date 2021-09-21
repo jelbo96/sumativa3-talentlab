@@ -26,7 +26,7 @@ public class UsuarioController {
 		this.uservice = usuarioService;
 	}
 	
-	@RequestMapping("")
+	/*@RequestMapping("")
 	public String indexUsuario(@ModelAttribute("usuario") Usuario usuario,Model model ) {
 		List<Usuario> lista_usuarios = uservice.findAll();
 		model.addAttribute("lista_usuarios", lista_usuarios);
@@ -34,7 +34,7 @@ public class UsuarioController {
 		return "usuario.jsp";
 	}
 	
-	/*@RequestMapping(value="/crear", method = RequestMethod.POST)
+	@RequestMapping(value="/crear", method = RequestMethod.POST)
 	public String crearUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, Model model) {
 		if(usuario.getNombre().isBlank() || usuario.getApellido().isBlank() || usuario.getEmail().isBlank()) {
 			model.addAttribute("error", "Todos los campos son requeridos!");

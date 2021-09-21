@@ -31,13 +31,14 @@ public class ProductoController {
 	@RequestMapping("")
 	public String indexUsuario(@ModelAttribute("producto") Producto producto,Model model , HttpSession session) {
 		
-		System.out.println("sesion"+session.getAttribute("userId")); 
-			
+		if(session.getAttribute("userId") != null) {
 			List<Producto> lista_productos = pservice.findAll();
 			model.addAttribute("lista_productos", lista_productos);
 			
 			return "producto.jsp";
-			
+		}else {
+			return "redirect:/login";
+		}
 		
 		
 	}
