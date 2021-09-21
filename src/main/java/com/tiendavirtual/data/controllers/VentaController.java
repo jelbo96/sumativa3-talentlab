@@ -1,6 +1,7 @@
 package com.tiendavirtual.data.controllers;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,88 +21,88 @@ import com.tiendavirtual.data.services.VentaService;
 @Controller
 @RequestMapping("/venta")
 public class VentaController {
-    /**private final VentaService vservice;
-	public VentaController(VentaService ventaService) {
-		this.vservice = ventaService;
-	}**/
+
 	@Autowired 
 	private VentaService vservice;
-	
+
 	@Autowired 
 	private ProductoService productoservice;
-	
+
 	@Autowired 
 	private UsuarioService usuarioservice;
-	
+
 	@RequestMapping("")
-	public String indexUsuario(@ModelAttribute("venta") Venta venta,Model model ) {
-		List<Venta> lista_ventas = vservice.findAll();
-		List<Producto> lista_productos =productoservice.findAll();
-		List<Usuario> lista_usuarios =usuarioservice.findAll();
-		
-		model.addAttribute("lista_productos", lista_productos);
-		model.addAttribute("lista_ventas", lista_ventas);
-		model.addAttribute("lista_usuarios", lista_usuarios);
-		
-		return "venta.jsp";
+	public String indexVenta(@ModelAttribute("venta") Venta venta,Model model, HttpSession session ) {
+		if(session.getAttribute("userId") != null) {
+			List<Venta> lista_ventas = vservice.findAll();
+			List<Producto> lista_productos =productoservice.findAll();
+			List<Usuario> lista_usuarios =usuarioservice.findAll();
+			model.addAttribute("lista_productos", lista_productos);
+			model.addAttribute("lista_ventas", lista_ventas);
+			model.addAttribute("lista_usuarios", lista_usuarios);
+			return "venta.jsp";
+		}
+		else {
+			return "redirect:/login";
+		}
 	}
-	
+
 	@RequestMapping(value="/crear", method = RequestMethod.POST)
-	public String crearUsuario(@Valid @ModelAttribute("venta") Venta venta, Model model) {
-		List<Venta> lista_venta = vservice.findAll();
-		List<Producto> lista_productos =productoservice.findAll();
-		List<Usuario> lista_usuarios = usuarioservice.findAll();
-		//Verifica campos vacíos
-		if(venta.getDireccion_envio().isBlank()) {
-			model.addAttribute("error", "Todos los campos son requeridos!");
-			model.addAttribute("lista_ventas", lista_venta);
-			model.addAttribute("lista_productos", lista_productos);
-			model.addAttribute("lista_usuarios", lista_usuarios);
-			
-			return "venta.jsp";
+	public String crearVenta(@Valid @ModelAttribute("venta") Venta venta, Model model, HttpSession session) {
+		if(session.getAttribute("userId") != null) {
+			List<Venta> lista_venta = vservice.findAll();
+			List<Producto> lista_productos =productoservice.findAll();
+			List<Usuario> lista_usuarios = usuarioservice.findAll();
+			//Verifica campos vacíos
+			if(venta.getDireccion_envio().isBlank()) {
+				model.addAttribute("error", "Todos los campos son requeridos!");
+				model.addAttribute("lista_ventas", lista_venta);
+				model.addAttribute("lista_productos", lista_productos);
+				model.addAttribute("lista_usuarios", lista_usuarios);
+
+				return "venta.jsp";
+			}
+			Venta vent = vservice.insertarVenta(venta);
+			return "redirect:/venta";
 		}
-		
-		/**System.out.println("CANTIDAD A VENDER  ==>" + venta.getCantidad());
-		System.out.println("PRODUCTO A VENDER  ==>" + venta.getProducto().getId());
-		System.out.println("STOCK ===>" + venta.getProducto().getStock());
-		//Verifica el stock
-		if(venta.getProducto().getStock()<venta.getCantidad()) {
-			System.out.println("NO HAY STOCK SUFICIENTE");
-			model.addAttribute("error", "No hay stock suficiente! el stock actual de " + venta.getProducto().getNombre() + " es de " + venta.getProducto().getStock());
-			model.addAttribute("lista_ventas", lista_venta);
-			model.addAttribute("lista_productos", lista_productos);
-			model.addAttribute("lista_usuarios", lista_usuarios);
-			return "venta.jsp";
+		else {
+			return "redirect:/login";
 		}
-		//Se resta el stock
-		venta.getProducto().setStock(venta.getProducto().getStock() - venta.getCantidad());
-		**/
-		Venta vent = vservice.insertarVenta(venta);
-		return "redirect:/venta";
 	}
-	
+
 	@RequestMapping(value="/actualizar/{id}", method = RequestMethod.GET)
-	public String actualizarVenta(@PathVariable("id") Long id, Model model) {
-		Venta venta = vservice.buscarVenta(id);
-		
-		model.addAttribute("venta", venta);
-		return "editar_venta.jsp";
+	public String actualizarVenta(@PathVariable("id") Long id, Model model, HttpSession session) {
+		if(session.getAttribute("userId") != null) {
+			Venta venta = vservice.buscarVenta(id);
+			model.addAttribute("venta", venta);
+			return "editar_venta.jsp";
+		}
+		else {
+			return "redirect:/login";
+		}
 	}
-	
+
 	@RequestMapping(value="/modificar",method= RequestMethod.PUT)
-	public String modificar(@Valid @ModelAttribute("venta") Venta venta) {
-		
-		System.out.println("el Id a modificar es: "+ venta.getId());
-		vservice.modificarVenta(venta);
-		
-		return "redirect:/venta";
+	public String modificar(@Valid @ModelAttribute("venta") Venta venta, HttpSession session) {
+		if(session.getAttribute("userId") != null) {
+			System.out.println("el Id a modificar es: "+ venta.getId());
+			vservice.modificarVenta(venta);
+			return "redirect:/venta";
+		}
+		else {
+			return "redirect:/login";
+		}
 	}
-	
+
 	@RequestMapping(value="/eliminar/{id}", method = RequestMethod.DELETE)
-	public String eliminar(@PathVariable("id") Long id) {
-		System.out.println("Eliminar id: "+ id);
-		vservice.eliminarVenta(id);
-		
-		return "redirect:/venta";
+	public String eliminar(@PathVariable("id") Long id, HttpSession session) {
+		if(session.getAttribute("userId") != null) {
+			System.out.println("Eliminar id: "+ id);
+			vservice.eliminarVenta(id);
+			return "redirect:/venta";
+		}
+		else {
+			return "redirect:/login";
+		}
 	}
 }
